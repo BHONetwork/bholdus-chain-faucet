@@ -1,4 +1,4 @@
-const Discord = require('discord.js');
+import Discord = require('discord.js');
 import { fundToken } from "./mockFunction"
 
 const client = new Discord.Client();

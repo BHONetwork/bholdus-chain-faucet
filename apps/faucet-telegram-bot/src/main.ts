@@ -1,6 +1,5 @@
 import { Telegraf } from "telegraf";
 import { fundToken } from "./mockFunction"
-require("dotenv").config();
 
 const bot = new Telegraf('1853984481:AAH5BrAsw-lXGVbR_2otl7BzG5gDn-PNLls');
 
