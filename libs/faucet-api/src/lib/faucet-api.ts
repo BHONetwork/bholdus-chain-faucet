@@ -1,4 +1,5 @@
 import { ApiPromise, WsProvider, Keyring } from '@polkadot/api';
+import { spec as bholdusSpec } from './bholdus-spec';
 
 type ApiOptions = {
   chainUrl: string;
@@ -16,7 +17,10 @@ export class FaucetApi {
   constructor(apiOptions: ApiOptions) {
     this.chainUrl = apiOptions.chainUrl;
     this.wsProvider = new WsProvider(this.chainUrl);
-    this.api = new ApiPromise({ provider: this.wsProvider });
+    this.api = new ApiPromise({
+      provider: this.wsProvider,
+      typesBundle: { spec: bholdusSpec },
+    });
     this.isReady = this.api.isReady.then(() => this);
 
     this.api.on('connected', () => {
@@ -50,6 +54,10 @@ export class FaucetApi {
     const sudoPair = keyring.addFromUri(sudoPhrase);
 
     console.info(
+      `Token symbol ${tokenSymbols},  Token decimals ${tokenDecimals}`
+    );
+
+    console.info(
       `Sending ${amount} ${tokenSymbols} from ${fromAddr} to ${toAddr}`
     );
 
@@ -58,7 +66,7 @@ export class FaucetApi {
         this.api.tx.balances.forceTransfer(
           fromAddr,
           toAddr,
-          amount * Math.pow(10, tokenDecimals)
+          (amount * Math.pow(10, tokenDecimals)).toString()
         ),
         0
       )
