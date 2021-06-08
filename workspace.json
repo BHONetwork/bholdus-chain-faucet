@@ -1,10 +1,109 @@
 {
-  
-  
   "version": 2,
-  
-  "projects": {},
   "cli": {
-    "defaultCollection": "@nrwl/workspace"
+    "defaultCollection": "@nrwl/node"
+  },
+  "defaultProject": "faucet-telegram-bot",
+  "projects": {
+    "faucet-telegram-bot": {
+      "root": "apps/faucet-telegram-bot",
+      "sourceRoot": "apps/faucet-telegram-bot/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/faucet-telegram-bot",
+            "main": "apps/faucet-telegram-bot/src/main.ts",
+            "tsConfig": "apps/faucet-telegram-bot/tsconfig.app.json",
+            "assets": ["apps/faucet-telegram-bot/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/faucet-telegram-bot/src/environments/environment.ts",
+                  "with": "apps/faucet-telegram-bot/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "faucet-telegram-bot:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/faucet-telegram-bot/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/faucet-telegram-bot"],
+          "options": {
+            "jestConfig": "apps/faucet-telegram-bot/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "faucet-discord-bot": {
+      "root": "apps/faucet-discord-bot",
+      "sourceRoot": "apps/faucet-discord-bot/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/faucet-discord-bot",
+            "main": "apps/faucet-discord-bot/src/main.ts",
+            "tsConfig": "apps/faucet-discord-bot/tsconfig.app.json",
+            "assets": ["apps/faucet-discord-bot/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/faucet-discord-bot/src/environments/environment.ts",
+                  "with": "apps/faucet-discord-bot/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "faucet-discord-bot:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/faucet-discord-bot/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/faucet-discord-bot"],
+          "options": {
+            "jestConfig": "apps/faucet-discord-bot/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    }
   }
 }
