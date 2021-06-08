@@ -27,7 +27,9 @@
   },
   "private": true,
   "dependencies": {
-    "tslib": "^2.0.0"
+    "tslib": "^2.0.0",
+    "telegraf": "3.38.0",
+    "discord.js": "^12.5.3"
   },
   "devDependencies": {
     "@nrwl/cli": "12.3.6",
