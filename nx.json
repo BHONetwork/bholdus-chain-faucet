@@ -24,6 +24,9 @@
     },
     "faucet-discord-bot": {
       "tags": []
+    },
+    "faucet-api": {
+      "tags": []
     }
   }
 }

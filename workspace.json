@@ -104,6 +104,48 @@
           }
         }
       }
+    },
+    "faucet-utils": {
+      "root": "libs/faucet-utils",
+      "sourceRoot": "libs/faucet-utils/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/faucet-utils/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/faucet-utils"],
+          "options": {
+            "jestConfig": "libs/faucet-utils/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "faucet-api": {
+      "root": "libs/faucet-api",
+      "sourceRoot": "libs/faucet-api/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/faucet-api/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/faucet-api"],
+          "options": {
+            "jestConfig": "libs/faucet-api/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   }
 }
