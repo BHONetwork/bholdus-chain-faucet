@@ -17,7 +17,10 @@ client.on('ready', () => {
 client.on('message', async function (message) {
   try {
     if (message.author.bot) return; // check if bot msg
-    if (!message.content.startsWith(prefix)) return; // check if it is a command
+    if (!message.content.startsWith(prefix)) {
+      message.reply('Use this syntax to fund your testnet account: /fund <address>.');
+      return; // check if it is a command
+    }
 
     const commandBody = message.content.slice(prefix.length);
     const args = commandBody.split(' ');
