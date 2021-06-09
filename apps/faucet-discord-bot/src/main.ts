@@ -18,7 +18,9 @@ client.on('message', async function (message) {
   try {
     if (message.author.bot) return; // check if bot msg
     if (!message.content.startsWith(prefix)) {
-      message.reply('Use this syntax to fund your testnet account: /fund <address>.');
+      message.reply(
+        'Use this syntax to fund your testnet account: /fund <address>.'
+      );
       return; // check if it is a command
     }
 
@@ -32,17 +34,31 @@ client.on('message', async function (message) {
       if (!address) {
         message.reply('Invalid address');
       } else {
+        const isValidAddress = await FaucetApi.isValidAddress(address);
+        if (!isValidAddress) {
+          return message.reply('Invalid address');
+        }
+
+        const fundAmount = 1;
+
         message.reply('We are processing your request, please wait...');
         // call request
         await faucetApi.isReady;
 
         const response = await faucetApi
-          .fund(environment.sudoPhrase, environment.sendingAccount, address)
+          .fund(
+            environment.sudoPhrase,
+            environment.sendingAccount,
+            address,
+            fundAmount
+          )
           .then(() => ({ status: 'success' }))
           .catch(() => ({ status: 'error' }));
 
         if (response.status === 'success') {
-          message.reply(`We have successfully funded the account ${address}`);
+          message.reply(
+            `We have successfully funded ${fundAmount} ${faucetApi.tokenSymbol} the account ${address}`
+          );
         } else {
           message.reply(
             `We have error funding your account, please insert your address to try again`

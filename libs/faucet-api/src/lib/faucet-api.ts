@@ -1,4 +1,6 @@
 import { ApiPromise, WsProvider, Keyring } from '@polkadot/api';
+import { isHex, hexToU8a } from '@polkadot/util';
+import { decodeAddress, encodeAddress } from '@polkadot/keyring';
 import { spec as bholdusSpec } from './bholdus-spec';
 
 type ApiOptions = {
@@ -71,5 +73,21 @@ export class FaucetApi {
         0
       )
       .signAndSend(sudoPair);
+  }
+
+  static async isValidAddress(address: string) {
+    try {
+      encodeAddress(
+        isHex(address) ? hexToU8a(address) : decodeAddress(address)
+      );
+
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  get tokenSymbol(): string {
+    return this.api.registry.chainTokens[0];
   }
 }
