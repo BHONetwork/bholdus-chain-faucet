@@ -87,6 +87,11 @@
           "executor": "@nrwl/node:execute",
           "options": {
             "buildTarget": "faucet-discord-bot:build"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "faucet-discord-bot:build:production"
+            }
           }
         },
         "lint": {

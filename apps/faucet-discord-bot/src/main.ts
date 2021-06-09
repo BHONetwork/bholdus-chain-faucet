@@ -1,5 +1,4 @@
 import Discord = require('discord.js');
-import { fundToken } from './mockFunction';
 import { environment } from './environments/environment';
 import { FaucetApi } from '@bholdus-chain-faucet/faucet-api';
 
@@ -8,6 +7,8 @@ const client = new Discord.Client();
 const prefix = '/';
 
 const faucetApi = new FaucetApi({ chainUrl: environment.chainUrl });
+
+console.log(`NODE_ENV=${process.env.NODE_ENV}`);
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
@@ -52,4 +53,4 @@ client.on('message', async function (message) {
   }
 });
 
-client.login('ODUxNjYzMDQxOTYzNjIyNDQx.YL7jBA.TZ3XhZAJtO-8_5YyWuE5Vz3K1wc');
+client.login(environment.discordKey);

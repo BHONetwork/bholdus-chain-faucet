@@ -1,10 +1,11 @@
 import * as dotenv from 'dotenv';
 
-dotenv.config({ path: '../../.env' });
+dotenv.config();
 
 export const environment = {
   production: true,
-  chainUrl: 'ws://127.0.0.1:9944',
-  sudoPhrase: '//Alice',
-  sendingAccount: "5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY",
+  chainUrl: process.env.BHOLDUS_CHAIN_URL,
+  sudoPhrase: process.env.BHOLDUS_PHRASE,
+  sendingAccount: process.env.BHOLDUS_SENDING_ACCOUNT,
+  discordKey: process.env.DISCORD_KEY,
 };
