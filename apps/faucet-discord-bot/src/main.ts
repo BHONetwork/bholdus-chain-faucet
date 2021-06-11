@@ -39,7 +39,7 @@ client.on('message', async function (message) {
           return message.reply('Invalid address');
         }
 
-        const fundAmount = 1;
+        const fundAmount = 100;
 
         message.reply('We are processing your request, please wait...');
         // call request

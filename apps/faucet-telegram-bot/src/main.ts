@@ -33,7 +33,7 @@ bot.on('text', async (ctx) => {
     return ctx.reply('Invalid address');
   }
 
-  const fundAmount = 1;
+  const fundAmount = 100;
 
   ctx.reply('We are processing your request, please wait...');
 
