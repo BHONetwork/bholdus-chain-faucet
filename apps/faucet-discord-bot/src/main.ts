@@ -50,7 +50,7 @@ client.on('message', async function (message) {
         const isFunded = await existsAsync(address)
 
         if (isFunded) {
-          const remainingTime = await ttl('key'); 
+          const remainingTime = await ttl(address); 
           return message.reply(`We have funded this address recently, please try again after ${remainingTime} seconds!`);
         }
 
