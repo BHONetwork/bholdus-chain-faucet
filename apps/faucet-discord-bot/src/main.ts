@@ -1,10 +1,18 @@
 import Discord = require('discord.js');
+import { promisify } from 'util'
 import { environment } from './environments/environment';
 import { FaucetApi } from '@bholdus-chain-faucet/faucet-api';
+import redis = require("redis");
+
+const redisClient = redis.createClient();
+const existsAsync = promisify(redisClient.exists).bind(redisClient);
+const ttl = promisify(redisClient.ttl).bind(redisClient);
 
 const client = new Discord.Client();
 
 const prefix = '/';
+
+const expiredTime = 259200 //259200 in seconds => 3 days
 
 const faucetApi = new FaucetApi({ chainUrl: environment.chainUrl });
 
@@ -39,6 +47,13 @@ client.on('message', async function (message) {
           return message.reply('Invalid address');
         }
 
+        const isFunded = await existsAsync(address)
+
+        if (isFunded) {
+          const remainingTime = await ttl('key'); 
+          return message.reply(`We have funded this address recently, please try again after ${remainingTime} seconds!`);
+        }
+
         const fundAmount = 100;
 
         message.reply('We are processing your request, please wait...');
@@ -56,6 +71,7 @@ client.on('message', async function (message) {
           .catch(() => ({ status: 'error' }));
 
         if (response.status === 'success') {
+          redisClient.set(address, true, 'EX', expiredTime);
           message.reply(
             `We have successfully funded ${fundAmount} ${faucetApi.tokenSymbol} the account ${address}`
           );
